@@ -1,3 +1,15 @@
+function checkAnwser () {
+    if (guess == text_list[0] || (text_list[1] || (text_list[2] || text_list[3]))) {
+        info.changeScoreBy(1)
+        game.splash("Correct")
+    } else {
+        info.setScore(0 - 1)
+        game.splash("Wrong")
+    }
+}
+let guess = ""
+let text_list: string[] = []
+info.setScore(0)
 scene.setBackgroundImage(img`
     4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444
     4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444
@@ -156,6 +168,7 @@ picnicFood.setImage(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `)
+let misses = 0
 let foodNames = [
 img`
     . . . . . . . 6 . . . . . . . . 
@@ -280,10 +293,19 @@ img`
     .......................bbbaaaa..
     `
 ]
-let text_list = [
-"Strawberry",
-"Donut",
-"Apple",
-"Cherry",
-"Cake"
+text_list = [
+"strawberry",
+"donut",
+"apple",
+"cherry",
+"cake"
 ]
+checkAnwser()
+forever(function () {
+    for (let index = 0; index <= 4; index++) {
+        picnicFood.setImage(foodNames[index])
+        pause(200)
+    }
+    picnicFood.destroy()
+    guess = game.askForString("What was in the basket")
+})
